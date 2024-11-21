@@ -23,14 +23,10 @@ export const getTodos = (_req: Request, res: Response) => {
 };
 
 // GET single todo by its id and returns the todo
-export const getTodo = (req: Request, res: Response) => {
+export const getTodo = (req: Request, res: Response): void => {
   const { id } = req.params;
 
   const foundTodo = todos.find((t) => t.id === +id);
-
-  if (!foundTodo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
 
   res.status(200).json(foundTodo);
 };
@@ -53,38 +49,30 @@ export const createTodo = (req: Request, res: Response) => {
 };
 
 // PUT a todo and returns the updated todo
-export const updateTodo = (req: Request, res: Response) => {
+export const updateTodo = (req: Request, res: Response): void => {
   const { id } = req.params;
   const { title, description, status } = req.body;
 
   const foundTodo = todos.find((t) => t.id === +id);
 
-  if (!foundTodo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
-
   const updatedTodo = {
-    id: foundTodo.id,
-    title: title || foundTodo.title,
-    description: description || foundTodo.description,
-    status: status || foundTodo.status,
-    createdAt: foundTodo.createdAt,
+    id: foundTodo?.id,
+    title: title || foundTodo?.title,
+    description: description || foundTodo?.description,
+    status: status || foundTodo?.status,
+    createdAt: foundTodo?.createdAt,
   };
 
   res.status(200).json(updatedTodo);
 };
 
 // DELETE a todo and returns the updated todos array
-export const deleteTodo = (req: Request, res: Response) => {
+export const deleteTodo = (req: Request, res: Response): void => {
   const { id } = req.params;
 
   const foundTodo = todos.find((t) => t.id === +id);
 
-  if (!foundTodo) {
-    return res.status(404).json({ message: "Todo not found" });
-  }
-
-  const filtered = todos.filter((t) => t.id !== foundTodo.id);
+  const filtered = todos.filter((t) => t.id !== foundTodo?.id);
 
   res.status(200).json(filtered);
 };

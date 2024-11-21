@@ -1,19 +1,20 @@
 import type { Request, Response } from "express";
+import type ITodo from "../types/todo";
 
-const todos = [
+const todos: ITodo[] = [
   {
     id: 1,
     title: "Testing",
     description: "This is just a test",
     status: "pending",
-    createdAt: Date.now(),
+    createdAt: new Date(),
   },
   {
     id: 2,
     title: "Take a Shower",
     description: "Reminder to take a shower",
     status: "in-progress",
-    createdAt: Date.now(),
+    createdAt: new Date(),
   },
 ];
 
@@ -40,7 +41,7 @@ export const createTodo = (req: Request, res: Response) => {
     title,
     description,
     status,
-    createdAt: Date.now(),
+    createdAt: new Date(),
   };
 
   todos.push(newTodo);
